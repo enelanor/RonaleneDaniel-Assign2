@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MDIA 2294</title>
+    
+    <style>        
+        img {
+            margin:5px;
+        }
+        
+        img.clickable{
+            cursor:pointer;
+        }
+    
+    </style>
+    
+</head>
+<body>
+
+    <h1>MDIA 2294: Assignment 2</h1>
+    
+    <div style="text-align:center;">
+        <table>
+            <tr>
+                <td></td>
+                <td style="text-align:center;">
+                    <div><img id="main_image" alt="Main Image" /></div>
+
+                    <!-- you may or may not use this hidden textbox-->
+                    <div><input id="current-index" /></div>    
+                </td>
+                <td></td>
+            
+            </tr>
+            <tr>
+                <td>
+                    <img src="images/first.png" id="first-btn" />            
+                    <img src="images/prev.png" id="prev-btn" />
+                </td>
+                <td>
+                    <div id="thumbnail-area"></div>           
+                </td>
+                <td>
+                    <img src="images/next.png" id="next-btn" />            
+                    <img src="images/last.png" id="last-btn" />
+                </td>
+            </tr>       
+        </table>       
+    </div>
+    
+    <script>
+
+// created variable: image_root_names
+// assigned "image_root_names" an array of strings with the root name of the image file (ex. spongebob, patrick, etc.)
+        const image_root_names = ["spongebob", "patrick", "krabs", "plankton", "sandy"];
+
+// When you call the function "set_main_image" you pass a value to "image_index" that will be used in the function.
+// "=>" arrow syntax defines this function expression
+        const set_main_image = (image_index) => {
+// "querySelector" gets the element id from the html
+// to get the images from the folder you add ".src" and ""images/" + image_root_names[image_index] + "Full.jpg";" this is the path route when finding the images
+            document.querySelector("#main_image").src = "images/" + image_root_names[image_index] + "Full.jpg";
+        }
+
+// name of the function
+// "=" assigns the variable to "set_thumbnails"
+// "()" the function does not take any parameters
+// "=>" arrow syntax defines the function expressiom
+        const set_thumbnails = () => {
+    
+// "image_root_names.forEach" is used for arrays
+// "image_name" name of an image
+// "index" represents index of current element processed in the array
+            image_root_names.forEach( (image_name, index) => {
+
+// creates a new img element in html
+                    const new_thumb = document.createElement("img");
+// sets url of the img element for the thumb images
+                    new_thumb.src = "images/" + image_name + "Thumb.jpg";
+// this is so that the thumbnail picture is clickable
+                    new_thumb.className = "clickable";
+// the EventListener listens for the click
+                    new_thumb.addEventListener("click", () => {
+// when the thumbnail picture is clicked then the mainimage will appear
+                        set_main_image(index);
+
+                    });
+// this element is the container where the image is displayed
+                    document.querySelector("#thumbnail-area").append(new_thumb);
+                    
+            });
+    
+        } 
+
+// name of the function
+// purpose is to set the 1st main image of the "image_root_names" array
+        const set_nav_first = () => {
+// function to call "set_main_image"
+// (0) represents the first image of the "image_root_names" array 
+            set_main_image(0);
+        }
+
+// gets the element from html and uses the function "const set_nav_first" to make the image button work
+        document.getElementById('first-btn').addEventListener('click', set_nav_first);
+
+//name of function
+// set main image to the last image in the array
+        const set_nav_last = () => {
+// (image_root_names.length - 1); is to calculate the index of the last image of the array
+            set_main_image(image_root_names.length - 1);
+        }
+
+// gets the element from html and uses the function "const set_nav_last" to make the image button work
+        document.getElementById('last-btn').addEventListener('click', set_nav_last);
+
+
+// same concept as the one below but this time we are updating the main image to display the previous image
+        const set_nav_prev = () => {
+            const mainImage = document.getElementById('main-image').src;
+            const currentIndex = image_root_names.findIndex(name => mainImage.includes(name + 'Full'));
+            const prevIndex = (currentIndex - 1 + image_root_names.length) % image_root_names.length;
+            set_main_image(prevIndex);
+        }
+
+// gets the element from html and uses the function "const set_nav_prev" to make the image button work
+        document.getElementById('prev-btn').addEventListener('click', set_nav_prev);
+
+// name of the function to set to next image
+        const set_nav_next = () => {
+// name is "mainImage" and selecting element id from html using "document.getElementById('main-image').src;"
+            const mainImage = document.getElementById('main-image').src;
+// finds the index of current image that displays by checking if the source of the main image includes "Full"
+            const currentIndex = image_root_names.findIndex(name => mainImage.includes(name + 'Full'));
+// if it matches then it returns the index of the image in array
+// if "currentIndex + 1" equals the length of "image_root_names", it wraps back to 0.
+            const nextIndex = (currentIndex + 1) % image_root_names.length;
+// "set_main_image" is the function and "nextIndex" sets the main image to the next image in the array
+            set_main_image(nextIndex);
+        }
+
+// gets the element from html and uses the function "const set_nav_next" to make the image button work
+        document.getElementById('next-btn').addEventListener('click', set_nav_next);
+
+// adds an event listener to the window object
+        window.addEventListener("load", () => {
+// sets the main image to display the image at index "0" in the "image_root_names" array when the page loads
+            set_main_image(0);
+// calls the small images "thumbnails"
+            set_thumbnails();
+        });
+
+    </script>
+    
+</body>
+</html>
