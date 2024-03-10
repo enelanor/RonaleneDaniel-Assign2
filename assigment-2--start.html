@@ -28,22 +28,22 @@
                     <div><img id="main_image" alt="Main Image" /></div>
 
                     <!-- you may or may not use this hidden textbox-->
-                    <div><input id="current-index" /></div>    
+                    <div><input id="current_index" /></div>    
                 </td>
                 <td></td>
             
             </tr>
             <tr>
                 <td>
-                    <img src="images/first.png" id="first-btn" />            
-                    <img src="images/prev.png" id="prev-btn" />
+                    <img src="images/first.png" id="first_btn" />            
+                    <img src="images/prev.png" id="prev_btn" />
                 </td>
                 <td>
-                    <div id="thumbnail-area"></div>           
+                    <div id="thumbnail_area"></div>           
                 </td>
                 <td>
-                    <img src="images/next.png" id="next-btn" />            
-                    <img src="images/last.png" id="last-btn" />
+                    <img src="images/next.png" id="next_btn" />            
+                    <img src="images/last.png" id="last_btn" />
                 </td>
             </tr>       
         </table>       
@@ -82,12 +82,12 @@
                     new_thumb.className = "clickable";
 // the EventListener listens for the click
                     new_thumb.addEventListener("click", () => {
-// when the thumbnail picture is clicked then the mainimage will appear
+// when the thumbnail picture is clicked then the main image will appear
                         set_main_image(index);
 
                     });
 // this element is the container where the image is displayed
-                    document.querySelector("#thumbnail-area").append(new_thumb);
+                    document.querySelector("#thumbnail_area").append(new_thumb);
                     
             });
     
@@ -102,7 +102,7 @@
         }
 
 // gets the element from html and uses the function "const set_nav_first" to make the image button work
-        document.getElementById('first-btn').addEventListener('click', set_nav_first);
+        document.getElementById('first_btn').addEventListener('click', set_nav_first);
 
 //name of function
 // set main image to the last image in the array
@@ -112,24 +112,24 @@
         }
 
 // gets the element from html and uses the function "const set_nav_last" to make the image button work
-        document.getElementById('last-btn').addEventListener('click', set_nav_last);
+        document.getElementById('last_btn').addEventListener('click', set_nav_last);
 
 
 // same concept as the one below but this time we are updating the main image to display the previous image
         const set_nav_prev = () => {
-            const mainImage = document.getElementById('main-image').src;
+            const mainImage = document.getElementById('main_image').src;
             const currentIndex = image_root_names.findIndex(name => mainImage.includes(name + 'Full'));
             const prevIndex = (currentIndex - 1 + image_root_names.length) % image_root_names.length;
             set_main_image(prevIndex);
         }
 
 // gets the element from html and uses the function "const set_nav_prev" to make the image button work
-        document.getElementById('prev-btn').addEventListener('click', set_nav_prev);
+        document.getElementById('prev_btn').addEventListener('click', set_nav_prev);
 
 // name of the function to set to next image
         const set_nav_next = () => {
 // name is "mainImage" and selecting element id from html using "document.getElementById('main-image').src;"
-            const mainImage = document.getElementById('main-image').src;
+            const mainImage = document.getElementById('main_image').src;
 // finds the index of current image that displays by checking if the source of the main image includes "Full"
             const currentIndex = image_root_names.findIndex(name => mainImage.includes(name + 'Full'));
 // if it matches then it returns the index of the image in array
@@ -140,7 +140,7 @@
         }
 
 // gets the element from html and uses the function "const set_nav_next" to make the image button work
-        document.getElementById('next-btn').addEventListener('click', set_nav_next);
+        document.getElementById('next_btn').addEventListener('click', set_nav_next);
 
 // adds an event listener to the window object
         window.addEventListener("load", () => {
